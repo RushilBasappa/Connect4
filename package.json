@@ -7,8 +7,10 @@
     "start": "babel-node server.js"
   },
   "dependencies": {
-    "material-ui": "latest",
+    "babel-preset-stage-1": "^6.24.1",
     "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "material-ui": "latest",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "webpack": "^3.10.0"
