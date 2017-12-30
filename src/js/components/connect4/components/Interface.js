@@ -3,7 +3,8 @@ import _ from 'lodash';
 import Paper from 'material-ui/Paper';
 import { Card, CardText } from 'material-ui/Card';
 import Styles from './Styles';
-import config from '../lib/config'
+import config from '../lib/config';
+import Matches from '../lib/match';
 
 const circle = (row, col, a) => {
   return (
@@ -11,35 +12,11 @@ const circle = (row, col, a) => {
   )
 }
 
-const initialState = () => {
-  let state = [];
-  _.times(config.rows).map(i => {
-    state.push(_.range(config.columns).map(i => 0))
-  })
-  return state;
-}
-
 class Interface extends Component {
-  state = {
-    circleStates: initialState(),
-    player: config.availablePlayers[0]
-  }
-  changePlayer = (player) => (player == "red" ? "yellow" : "red")
-
-  handleClick = (column) => {
-    const circleStates = this.state.circleStates;
-    const col_values = circleStates.map((row) => (row[column]))
-    const row = col_values.indexOf(0);
-    circleStates[row][column] = (this.state.player == "red" ? 1 : 2)
-    this.setState({
-      circleStates: circleStates,
-      player: this.changePlayer(this.state.player)
-    })
-  }
   render() {
-    const rows = this.state.circleStates.map((i, ikey) => {
+    const rows = this.props.circleStates.map((i, ikey) => {
       const entry = i.map((j, jkey) => (
-        <td key={jkey} onClick={() => this.handleClick(jkey)}>{circle(ikey, jkey, this.state.circleStates)}</td>
+        <td key={jkey} onClick={() => this.props.handleClick(jkey)}>{circle(ikey, jkey, this.props.circleStates)}</td>
       ))
       return (<tr key={ikey}>{entry}</tr>)
     }).reverse()
